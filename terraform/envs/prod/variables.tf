@@ -1,0 +1,47 @@
+variable "project_id" {
+  type    = string
+  default = "cashonrails-assess"
+}
+
+variable "region" {
+  type    = string
+  default = "africa-south1"
+}
+
+variable "image" {
+  description = "Initial container image; CI/CD owns subsequent rollouts."
+  type        = string
+}
+
+variable "db_tier" {
+  type    = string
+  default = "db-f1-micro"
+}
+
+variable "db_availability_type" {
+  type    = string
+  default = "ZONAL"
+}
+
+variable "db_deletion_protection" {
+  type    = bool
+  default = true
+}
+
+variable "deployer_email" {
+  type = string
+}
+
+variable "min_instances" {
+  type    = number
+  default = 1
+}
+
+variable "max_instances" {
+  type    = number
+  default = 10
+}
+
+variable "notification_email" {
+  type = string
+}
