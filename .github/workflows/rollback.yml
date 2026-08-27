@@ -1,0 +1,76 @@
+name: Rollback
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: Environment to roll back
+        required: true
+        type: choice
+        options:
+          - staging
+          - production
+      revision:
+        description: Revision to roll back to (blank = previous revision)
+        required: false
+        type: string
+
+permissions:
+  contents: read
+  id-token: write
+
+env:
+  REGION: africa-south1
+
+jobs:
+  rollback:
+    name: Roll back ${{ inputs.environment }}
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+    steps:
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ vars.WIF_PROVIDER }}
+          service_account: ${{ vars.DEPLOYER_SA }}
+
+      - name: Setup gcloud
+        uses: google-github-actions/setup-gcloud@v2
+
+      - name: Shift traffic
+        run: |
+          if [ "${{ inputs.environment }}" = "production" ]; then
+            SERVICE=cor-prod
+          else
+            SERVICE=cor-staging
+          fi
+
+          REVISION="${{ inputs.revision }}"
+          if [ -z "$REVISION" ]; then
+            # Second-newest revision = the one before the current deploy.
+            REVISION=$(gcloud run revisions list \
+              --service "$SERVICE" --region "$REGION" \
+              --sort-by="~metadata.creationTimestamp" \
+              --format="value(metadata.name)" | sed -n '2p')
+          fi
+
+          if [ -z "$REVISION" ]; then
+            echo "No previous revision found to roll back to." >&2
+            exit 1
+          fi
+
+          echo "Rolling $SERVICE back to $REVISION"
+          gcloud run services update-traffic "$SERVICE" \
+            --region "$REGION" \
+            --to-revisions "$REVISION=100"
+
+      - name: Verify
+        run: |
+          if [ "${{ inputs.environment }}" = "production" ]; then
+            SERVICE=cor-prod
+          else
+            SERVICE=cor-staging
+          fi
+          URL=$(gcloud run services describe "$SERVICE" \
+            --region "$REGION" --format='value(status.url)')
+          curl -fsS "$URL/api/v1/health"
