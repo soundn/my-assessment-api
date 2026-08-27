@@ -84,8 +84,10 @@ resource "google_project_iam_member" "deployer_roles" {
   member  = "serviceAccount:${google_service_account.deployer.email}"
 }
 
+# storage.admin (bucket-scoped) rather than objectAdmin: CI's terraform plan
+# must refresh this very binding, which requires buckets.getIamPolicy.
 resource "google_storage_bucket_iam_member" "deployer_state" {
   bucket = "cashonrails-assess-tfstate"
-  role   = "roles/storage.objectAdmin"
+  role   = "roles/storage.admin"
   member = "serviceAccount:${google_service_account.deployer.email}"
 }
