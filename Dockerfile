@@ -15,6 +15,9 @@ FROM dunglas/frankenphp:1-php8.4-alpine
 
 WORKDIR /app
 
+# Pull in OS-level security fixes newer than the base image snapshot.
+RUN apk --no-cache upgrade
+
 RUN install-php-extensions pdo_sqlite pdo_mysql opcache
 
 COPY --from=vendor /app/vendor ./vendor

@@ -12,3 +12,4 @@ Task.md
 npm-debug.log
 Dockerfile
 compose.yaml
+gha-creds-*.json

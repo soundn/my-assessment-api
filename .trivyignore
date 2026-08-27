@@ -1,0 +1,15 @@
+# Accepted-risk register for image scanning. Every entry needs a reason and
+# an owner decision; entries are revisited when the base image updates.
+#
+# The four findings below are Go-module vulnerabilities compiled into the
+# upstream FrankenPHP/Caddy binary (usr/local/bin/frankenphp). We already
+# build from the latest v1 alpine tag, so no upstream fix is available to
+# pull yet. The vulnerable component (kin-openapi ValidationHandler /
+# related Caddy toolchain modules) is not part of this application's
+# request path: the app serves plain Laravel routes and does not enable
+# Caddy's OpenAPI validation or admin modules. Risk accepted until the
+# base image ships fixed modules; tracked for re-review on each base bump.
+GHSA-r277-6w6q-xmqw
+GHSA-hrxh-6v49-42gf
+CVE-2026-76905
+CVE-2026-77354
