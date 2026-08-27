@@ -18,6 +18,14 @@ share only the container registry and the CI/CD identity.
 
 ## Diagram
 
+![Architecture diagram](architecture.png)
+
+*Generated as diagram-as-code from [`diagram.py`](diagram.py) — regenerate
+with `python docs/architecture/diagram.py` (requires `pip install diagrams`
+and graphviz).*
+
+The same topology as a text diagram:
+
 ```mermaid
 flowchart LR
     subgraph internet [Internet]
