@@ -15,7 +15,7 @@ FROM dunglas/frankenphp:1-php8.4-alpine
 
 WORKDIR /app
 
-RUN install-php-extensions pdo_sqlite opcache
+RUN install-php-extensions pdo_sqlite pdo_mysql opcache
 
 COPY --from=vendor /app/vendor ./vendor
 COPY . .
