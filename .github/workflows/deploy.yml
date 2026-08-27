@@ -83,7 +83,7 @@ jobs:
       # chain, and the marketplace action's installer proved flaky.
       - name: Scan image (Trivy)
         run: |
-          TRIVY_VERSION=0.65.0
+          TRIVY_VERSION=0.74.0
           curl -sfL "https://github.com/aquasecurity/trivy/releases/download/v${TRIVY_VERSION}/trivy_${TRIVY_VERSION}_Linux-64bit.tar.gz" \
             | tar xz -C /tmp trivy
           /tmp/trivy image \
