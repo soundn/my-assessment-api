@@ -74,6 +74,11 @@ resource "google_cloud_run_v2_service" "api" {
   location = var.region
   ingress  = "INGRESS_TRAFFIC_ALL"
 
+  # Environment teardown is gated by the database deletion_protection
+  # variable; the provider-level flag here would otherwise block
+  # `terraform destroy` on the stateless compute too.
+  deletion_protection = false
+
   template {
     service_account = google_service_account.runtime.email
 
@@ -180,6 +185,8 @@ resource "google_cloud_run_v2_service_iam_member" "public_invoker" {
 resource "google_cloud_run_v2_job" "migrate" {
   name     = "${var.name}-migrate"
   location = var.region
+
+  deletion_protection = false
 
   template {
     template {
