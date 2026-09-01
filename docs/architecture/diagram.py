@@ -74,7 +74,7 @@ with Diagram(
     with Cluster("GitHub"):
         gh = Github("Repository\n+ Actions CI/CD")
 
-    with Cluster("Google Cloud — project cashonrails-assess (africa-south1)"):
+    with Cluster("Google Cloud — project cashonrails-live (africa-south1)"):
         with Cluster("Shared services"):
             wif = Iam("Workload Identity\nFederation (OIDC)")
             registry = ContainerRegistry("Artifact Registry\ncontainer images")

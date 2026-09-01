@@ -1,6 +1,6 @@
 variable "project_id" {
   type    = string
-  default = "cashonrails-assess"
+  default = "cashonrails-live"
 }
 
 variable "region" {

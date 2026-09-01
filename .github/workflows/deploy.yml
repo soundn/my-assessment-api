@@ -15,9 +15,9 @@ permissions:
   id-token: write
 
 env:
-  PROJECT_ID: cashonrails-assess
+  PROJECT_ID: cashonrails-live
   REGION: africa-south1
-  IMAGE: africa-south1-docker.pkg.dev/cashonrails-assess/cashonrails/api
+  IMAGE: africa-south1-docker.pkg.dev/cashonrails-live/cashonrails/api
 
 concurrency:
   group: deploy

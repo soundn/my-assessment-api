@@ -7,8 +7,8 @@
 # The smallest tier is used here to favour engineering quality over
 # infrastructure spend, per the assessment constraints.
 
-image              = "africa-south1-docker.pkg.dev/cashonrails-assess/cashonrails/api:bootstrap"
-deployer_email     = "github-deployer@cashonrails-assess.iam.gserviceaccount.com"
+image              = "africa-south1-docker.pkg.dev/cashonrails-live/cashonrails/api:bootstrap"
+deployer_email     = "github-deployer@cashonrails-live.iam.gserviceaccount.com"
 notification_email = "soundnwankwo@gmail.com"
 
 db_tier       = "db-f1-micro"

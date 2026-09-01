@@ -13,7 +13,7 @@ terraform {
   }
 
   backend "gcs" {
-    bucket = "cashonrails-assess-tfstate"
+    bucket = "cashonrails-live-tfstate"
     prefix = "env/prod"
   }
 }

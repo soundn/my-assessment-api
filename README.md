@@ -83,7 +83,7 @@ docs/                   architecture / platform-design / security-data-residency
      servicenetworking, iam, iamcredentials, sts, monitoring, logging,
      cloudbuild).
   3. Create the versioned Terraform state bucket
-     (`cashonrails-assess-tfstate`, uniform access, public-access
+     (`cashonrails-live-tfstate`, uniform access, public-access
      prevention).
   4. Build the initial bootstrap image (`gcloud builds submit --tag
      <registry>/api:bootstrap .`) — needed once because the service
@@ -238,7 +238,7 @@ at `http://localhost:8080/docs`.
 Build the image:
 
 ```bash
-docker build -t cashonrails-assessment-api .
+docker build -t cashonrails-livement-api .
 ```
 
 Run with docker compose:

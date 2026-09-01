@@ -9,7 +9,7 @@ terraform {
   }
 
   backend "gcs" {
-    bucket = "cashonrails-assess-tfstate"
+    bucket = "cashonrails-live-tfstate"
     prefix = "env/shared"
   }
 }
@@ -87,7 +87,7 @@ resource "google_project_iam_member" "deployer_roles" {
 # storage.admin (bucket-scoped) rather than objectAdmin: CI's terraform plan
 # must refresh this very binding, which requires buckets.getIamPolicy.
 resource "google_storage_bucket_iam_member" "deployer_state" {
-  bucket = "cashonrails-assess-tfstate"
+  bucket = "cashonrails-live-tfstate"
   role   = "roles/storage.admin"
   member = "serviceAccount:${google_service_account.deployer.email}"
 }
